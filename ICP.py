@@ -7,8 +7,8 @@ import numpy as np
 #PC: 3 x N matrix of points in a point cloud
 #Returns: A 3 x 1 matrix of the centroid of the point cloud
 def getCentroid(PC):
-    #TODO: Finish this
-    return np.zeros((3, 1)) #Dummy value
+    # mean of column vectors (axis 1) 
+    return np.mean(PC, 1)[:, np.newaxis] 
 
 #Purpose: Given an estimate of the aligning matrix Rx that aligns
 #X to Y, as well as the centroids of those two point clouds, to
