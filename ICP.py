@@ -22,8 +22,14 @@ def getCentroid(PC):
 #Returns:
 #idx: An array of size N which stores the indices 
 def getCorrespondences(X, Y, Cx, Cy, Rx):
-    #TODO: Update this: Right now everything maps to the first point in Y
-    return np.zeros(X.shape[1], dtype=np.int64) #dummy value
+    X_ = np.dot(Rx, X - Cx);
+    Y_ = Y - Cy;
+    ab = np.dot(X_.transpose(), Y_) # each cell is X_i dot Y_j
+    xx = np.sum(X_*X_, 0)
+    yy = np.sum(Y_*Y_, 0)
+    D = (xx[:, np.newaxis] + yy[np.newaxis, :]) - 2*ab
+    idx = np.argmin(D, 1)
+    return idx 
 
 #Purpose: Given correspondences between two point clouds, to center
 #them on their centroids and compute the Procrustes alignment to
