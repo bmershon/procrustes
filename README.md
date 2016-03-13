@@ -2,7 +2,9 @@
 
 This *mini* assignment was completed as part of a course in 3D Digital Geometry (Math 290) taken at Duke University during Spring 2016. The course was taught by [Chris Tralie](http://www.ctralie.com/).
 
-*Procrustes Alignment: (a) Candide to Notre Dame; (b) Notre Dame to Candide; (c) Candide to randomly rotated Notre Dame; (d) Candide to Craig*
+*Procrustes Alignment:
+
+(a) Candide to statue; (b) statue to Candide; (c) Candide to rotated statue (local minima); (d) Candide to Craig*
 
 
 <img src="img/candide-notre.gif" width="202">
@@ -12,9 +14,13 @@ This *mini* assignment was completed as part of a course in 3D Digital Geometry 
 
 ### Files
 
-*ICPView.py* and ICPViewGLUT.py are two GUI implementations designed for looking meshes and animating the **iterative closest points algorithm for Procustes Alignment**. The second implemention can be used when wxPython doesn't play nicely on Mac operating systems.
+*ICPView.py* and ICPViewGLUT.py are two GUI implementations designed for looking at meshes and animating the **iterative closest points algorithm for Procustes Alignment**. The second implemention can be used when wxPython doesn't play nicely on Mac operating systems.
 
-*ICP.py* contains the code written by the student.
+*ICP.py* contains the code written by the student to implement
+
+- Point Correspondences between point clouds
+- Procustes Alignment
+- and the full iterative closest point algorithm.
 
 ### Learning Process
 
@@ -41,6 +47,24 @@ This code snippet fills in the MxN matrix D by:
 *Correspondences update on each iteration until possible convergence*
 ![Candide Face Mesh](img/candide-correspondences.gif)
 
+#### Procrustes Alignment
+
+Following the lecture slides, I was able to use NumPy to perform a singular value decomposition on the matrix resulting from multiplying Y (3 x M target point cloud, with *corresponding points*) by the transpose of X (3 x M point cloud to be translated and rotated). The rotation matrix was found by multiplying the "left" rotation matrix *U* of USV<sup>*</sup> by the transpose of *V*. This took 30 seconds to write and 1 hour to fix after observing weird fitting behavior due to having swapped the role of X and Y.
+
+#### Iterative Closest Points
+
+The above two implementations are all that is needed to perform iterative closest points.
+
+The loop:
+
+1. Find correspondences with current centroids of the X and Y point clouds, along with the rotation of X
+2. Find a new alignment
+3. Check if the centroid for X has not changed: if it has not, we are done; otherwise, repeat until we perform MAX_ITERATIONS
+
 ### Observations
+
+#### Asymetry in Iterative Closest Points
+
+
 
 ### Notes
