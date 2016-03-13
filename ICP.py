@@ -49,7 +49,7 @@ def getProcrustesAlignment(X, Y, idx):
     X_ = X - Cx
     Y_ = Y[:, idx] - Cy
     [U, S, Vt] = np.linalg.svd(np.dot(X_, Y_.T)) 
-    R = np.dot(U, Vt)
+    R = np.dot(U.T, Vt.T)
     return (Cx, Cy, R)    
 
 #Purpose: To implement the loop which ties together correspondence finding
@@ -74,11 +74,15 @@ def doICP(X, Y, MaxIters):
     Cx = np.eye(3, 1)
     Cy = np.eye(3, 1)
     Rx = np.eye(3, 3)
-    delta = np.inf
+    last = Cy
     for i in range(MaxIters):
         idx = getCorrespondences(X, Y, Cx, Cy, Rx)
-        [Cx, Cy, Rx] = getProcrustesAlignment(X, Y, idx)
+        Cx, Cy, Rx = getProcrustesAlignment(X, Y, idx)
         CxList.append(Cx)
         CyList.append(Cy)
         RxList.append(Rx)
+        d = Cy - last
+        if np.sum(d*d) == 0.0:
+            break;
+        last = Cy
     return (CxList, CyList, RxList)

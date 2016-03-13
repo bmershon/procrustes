@@ -136,6 +136,7 @@ class ICPViewerCanvas(BasicMeshCanvas):
         if self.maxItersTxt:
             MaxIters = int(self.maxItersTxt.GetValue())
         (self.CxList, self.CyList, self.RxList) = doICP(X, Y, MaxIters)
+        print("ICP converges after " + str(len(self.CyList)) + " iterations")
         self.currRx = self.RxList[-1]
         self.corridxbuff = None
         self.viewYMesh(None)
