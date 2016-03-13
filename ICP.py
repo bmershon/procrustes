@@ -44,10 +44,15 @@ def getCorrespondences(X, Y, Cx, Cy, Rx):
 #Rx: A 3x3 rotation matrix to rotate and align X to Y after
 #they have both been centered on their centroids Cx and Cy
 def getProcrustesAlignment(X, Y, idx):
-    #TODO: Finish this: These are all dummy values
-    Cx = np.zeros((3, 1))
-    Cy = np.zeros((3, 1))
-    R = np.eye(3) #3x3 Identity matrix (trivial rotation...needs to be updated)
+    Cx = getCentroid(X)
+    Cy = getCentroid(Y[:, idx])
+    X_ = X - Cx
+    Y_ = Y[:, idx] - Cy
+    print(X_.shape)
+    print(Y_.shape)
+    [U, S, Vt] = np.linalg.svd(np.dot(X_, Y_.T)) 
+    R = U.T
+    print(R)
     return (Cx, Cy, R)    
 
 #Purpose: To implement the loop which ties together correspondence finding
