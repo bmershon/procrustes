@@ -77,7 +77,7 @@ def doICP(X, Y, MaxIters):
     last = Cy
     for i in range(MaxIters):
         idx = getCorrespondences(X, Y, Cx, Cy, Rx)
-        Cx, Cy, Rx = getProcrustesAlignment(X, Y, idx)
+        (Cx, Cy, Rx) = getProcrustesAlignment(X, Y, idx)
         CxList.append(Cx)
         CyList.append(Cy)
         RxList.append(Rx)
