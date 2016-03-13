@@ -2,15 +2,14 @@
 
 This *mini* assignment was completed as part of a course in 3D Digital Geometry (Math 290) taken at Duke University during Spring 2016. The course was taught by [Chris Tralie](http://www.ctralie.com/).
 
-*Procrustes Alignment:
+*Procrustes Alignment:*
 
-(a) Candide to statue; (b) statue to Candide; (c) Candide to rotated statue (local minima); (d) Candide to Craig*
+*(a) Candide to statue; (b) statue to Candide; (c) local minimum; (d) Candide to Styrofoam Head*
 
-
-<img src="img/candide-notre.gif" width="202">
-<img src="img/notre-candide.gif" width="202">
-<img src="img/candide-notre-rotated.gif" width="202">
-<img src="img/candide-craig.gif" width="202">
+<img src="img/candide-statue.gif" width="202">
+<img src="img/statue-candide.gif" width="202">
+<img src="img/local-minima.gif" width="202">
+<img src="img/candide-styro.gif" width="202">
 
 ### Files
 
@@ -44,9 +43,6 @@ This code snippet fills in the MxN matrix D by:
 - **broadcasting** dot products of a *point from X with itself* and a *point from Y with itself* 
 - **summing** together three matrices: two produced by broadcasting, and one produced by matrix multiplication (and scaled by a constant)
 
-*Correspondences update on each iteration until possible convergence*
-![Candide Face Mesh](img/candide-correspondences.gif)
-
 #### Procrustes Alignment
 
 Following the lecture slides, I was able to use NumPy to perform a singular value decomposition on the matrix resulting from multiplying Y (3 x M target point cloud, with *corresponding points*) by the transpose of X (3 x M point cloud to be translated and rotated). The rotation matrix was found by multiplying the "left" rotation matrix *U* of USV<sup>*</sup> by the transpose of *V*. This took 30 seconds to write and 1 hour to fix after observing weird fitting behavior due to having swapped the role of X and Y.
@@ -69,4 +65,4 @@ We see a great fit when we attempt to fit *Candide.off* to *NotreDameFrontHalf.o
 
 #### Sensity to initial rotation
 
-The animations show that a local minima can occur when we attempt to fit *Candide.off* to a rotated statue. Where we previously saw a great fit with *Candide* rotated to fit the statue, the perturbation knocked us into a local minimum where the ICP algorithm converged. Why did the ICP algorithm converge? The algorithm stops before the `MAX_ITERATIONS` have occured if the correspondences (and therefore the centroid of Cy) remain unchanged since the last iteration. This can very well occur in a bad position, even if we are fitting a subset point cloud to what is effectively its superset point cloud.
+The animations show that local minima can occur when we attempt to fit *Candide.off* to a rotated statue. Where we previously saw a great fit with *Candide* rotated to fit the statue, the perturbation knocked us into a local minimum where the ICP algorithm converged. Why did the ICP algorithm converge? The algorithm stops before the `MAX_ITERATIONS` have occured if the correspondences (and therefore the centroid of Cy) remain unchanged since the last iteration. This can very well occur in a bad position, even if we are fitting a subset point cloud to what is effectively its superset point cloud.

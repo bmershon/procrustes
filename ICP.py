@@ -71,8 +71,8 @@ def doICP(X, Y, MaxIters):
     CxList = []
     CyList = []
     RxList = []
-    Cx = np.eye(3, 1)
-    Cy = np.eye(3, 1)
+    Cx = getCentroid(X)
+    Cy = getCentroid(Y)
     Rx = np.eye(3, 3)
     last = Cy
     for i in range(MaxIters):
