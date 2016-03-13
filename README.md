@@ -26,9 +26,9 @@ idx = np.argmin(D, 1)
 ```
 
 This code snippet fills in the MxN matrix D by:
-- using *matrix multiplication* to build the pair-wise dot products for each point from X with each point from Y.
+- using **matrix multiplication** to build the pair-wise dot products for each point from X with each point from Y.
 - **broadcasting** dot products of a *point from X with itself* and a *point from Y with itself* 
-- *adding* together three matrices: two produced by broadcasting, and one produced by matrix multiplication (and scaled by a constant)
+- **summing** together three matrices: two produced by broadcasting, and one produced by matrix multiplication (and scaled by a constant)
 
 ### Observations
 
