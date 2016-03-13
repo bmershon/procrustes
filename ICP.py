@@ -48,7 +48,7 @@ def getProcrustesAlignment(X, Y, idx):
     Cy = getCentroid(Y[:, idx])
     X_ = X - Cx
     Y_ = Y[:, idx] - Cy
-    [U, S, Vt] = np.linalg.svd(np.dot(Y_, X_.T)) 
+    (U, S, Vt) = np.linalg.svd(np.dot(Y_, X_.T)) 
     R = np.dot(U, Vt)
     return (Cx, Cy, R)    
 
