@@ -7,8 +7,8 @@ This *mini* assignment was completed as part of a course in 3D Digital Geometry 
 
 <img src="img/candide-notre.gif" width="202">
 <img src="img/notre-candide.gif" width="202">
-<img src="img/candide-craig.gif" width="202">
 <img src="img/candide-notre-rotated.gif" width="202">
+<img src="img/candide-craig.gif" width="202">
 
 ### Files
 
