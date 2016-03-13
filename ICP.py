@@ -48,15 +48,12 @@ def getProcrustesAlignment(X, Y, idx):
     Cy = getCentroid(Y[:, idx])
     X_ = X - Cx
     Y_ = Y[:, idx] - Cy
-    print(X_.shape)
-    print(Y_.shape)
     [U, S, Vt] = np.linalg.svd(np.dot(X_, Y_.T)) 
-    R = U.T
-    print(R)
+    R = np.dot(U, Vt)
     return (Cx, Cy, R)    
 
 #Purpose: To implement the loop which ties together correspondence finding
-#and procrustes alignment to implment the interative closest points algorithm
+#and procrustes alignment to implement the interative closest points algorithm
 #Do until convergence (i.e. as long as the correspondences haven't changed)
 #Inputs:
 #X: 3 x M matrix of points in X
@@ -71,8 +68,17 @@ def getProcrustesAlignment(X, Y, idx):
 #This is all of the information needed to animate exactly
 #what the ICP algorithm did
 def doICP(X, Y, MaxIters):
-    CxList = [np.zeros((3, 1))]
-    CyList = [np.zeros((3, 1))]
-    RxList = [np.eye(3)]
-    #TODO: Fill the rest of this in    
+    CxList = []
+    CyList = []
+    RxList = []
+    Cx = np.eye(3, 1)
+    Cy = np.eye(3, 1)
+    Rx = np.eye(3, 3)
+    delta = np.inf
+    for i in range(MaxIters):
+        idx = getCorrespondences(X, Y, Cx, Cy, Rx)
+        [Cx, Cy, Rx] = getProcrustesAlignment(X, Y, idx)
+        CxList.append(Cx)
+        CyList.append(Cy)
+        RxList.append(Rx)
     return (CxList, CyList, RxList)
