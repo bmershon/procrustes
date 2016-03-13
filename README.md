@@ -3,8 +3,11 @@
 This *mini* assignment was completed as part of a course in 3D Digital Geometry (Math 290) taken at Duke University during Spring 2016. The course was taught by [Chris Tralie](http://www.ctralie.com/).
 
 *Procrustes Alignment with face meshes*
-<img src="img/candide-notre.gif" width="202">
-<img src="img/notre-candide.gif" width="202">
+
+
+<img src="img/candide-notre.gif" width="230">
+<img src="img/notre-candide.gif" width="230">
+<img src="img/candide-notre-rotated.gif" width="230">
 
 ### Files
 
