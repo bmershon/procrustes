@@ -66,3 +66,9 @@ We see a great fit when we attempt to fit *Candide.off* to *NotreDameFrontHalf.o
 #### Sensity to initial rotation
 
 The animations show that local minima can occur when we attempt to fit *Candide.off* to a rotated statue. Where we previously saw a great fit with *Candide* rotated to fit the statue, the perturbation knocked us into a local minimum where the ICP algorithm converged. Why did the ICP algorithm converge? The algorithm stops before the `MAX_ITERATIONS` have occured if the correspondences (and therefore the centroid of Cy) remain unchanged since the last iteration. This can very well occur in a bad position, even if we are fitting a subset point cloud to what is effectively its superset point cloud.
+
+#### Number of iterations
+
+- The *Candide.off* to *NotreDameFrontHalf.off* fit took only 19 iterations to converge.
+- The *Candide.off* to the styrofoam head fit took 48 iterations.
+- The bad fit of the *Candide* mask to Chris Tralie's head took 84 iterations to arrive at the local minimumm where the mesh lands on his neck.
