@@ -19,8 +19,8 @@ This part of the implementation took me about 5 hours of reading about Python (f
 *from ICP.py*
 ```python
 ab = np.dot(X.transpose(), Y) # each entry is Xi dot Yj
-xx = np.sum(X*X, 0) # sum along squared coordinates, since points are column vectors
-yy = np.sum(Y*Y, 0)
+xx = np.sum(X*X, axis=0) # sum along squared coordinates, since points are column vectors
+yy = np.sum(Y*Y, axis=0)
 D = (xx[:, np.newaxis] + yy[np.newaxis, :]) - 2*ab
 idx = np.argmin(D, 1)
 ```
