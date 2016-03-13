@@ -59,12 +59,14 @@ The loop:
 
 1. Find correspondences with current centroids of the X and Y point clouds, along with the rotation of X
 2. Find a new alignment
-3. Check if the centroid for X has not changed: if it has not, we are done; otherwise, repeat until we perform MAX_ITERATIONS
+3. Check if the centroid for X has not changed (correspondences didn't change): if it has not, we are done; otherwise, repeat until we perform `MAX_ITERATIONS`
 
 ### Observations
 
-#### Asymetry in Iterative Closest Points
+#### Asymmetry in Iterative Closest Points
 
+We see a great fit when we attempt to fit *Candide.off* to *NotreDameFrontHalf.off*. However, when we try to fit the statue to the low polygon count mesh for *Candide*, we get a rather poor fit. One reason for this is that *Candide.off* is close to a subset of the very front of the face of the statue. The correspondences developed by the implementation create a mapping from each point in X to some point in the target point cloud. It is likely that multiple points in X map to the same point in Y. That right there is not a symmetric relationship! When we try to fit the superset pointcloud to the subset we see that features like the hair and neck which are absent in the subset are able to "pull" the Candide mask away from the close fit we saw when we fit a subset to the superset. *We don't want these superset features to affect the Euclidean distance matrix by producing large distances to features that are not present in the subset point cloud.* There is no way to prevent this from occuring in this simulation. Thus, subset fit to superset works better.
 
+#### Sensity to initial rotation
 
-### Notes
+The animations show that a local minima can occur when we attempt to fit *Candide.off* to a rotated statue. Where we previously saw a great fit with *Candide* rotated to fit the statue, the perturbation knocked us into a local minimum where the ICP algorithm converged. Why did the ICP algorithm converge? The algorithm stops before the `MAX_ITERATIONS` have occured if the correspondences (and therefore the centroid of Cy) remain unchanged since the last iteration. This can very well occur in a bad position, even if we are fitting a subset point cloud to what is effectively its superset point cloud.
