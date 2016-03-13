@@ -24,7 +24,7 @@ def getCentroid(PC):
 def getCorrespondences(X, Y, Cx, Cy, Rx):
     X_ = np.dot(Rx, X - Cx);
     Y_ = Y - Cy;
-    ab = np.dot(X_.transpose(), Y_) # each cell is X_i dot Y_j
+    ab = np.dot(X_.T, Y_) # each cell is X_i dot Y_j
     xx = np.sum(X_*X_, 0)
     yy = np.sum(Y_*Y_, 0)
     D = (xx[:, np.newaxis] + yy[np.newaxis, :]) - 2*ab
@@ -48,8 +48,8 @@ def getProcrustesAlignment(X, Y, idx):
     Cy = getCentroid(Y[:, idx])
     X_ = X - Cx
     Y_ = Y[:, idx] - Cy
-    [U, S, Vt] = np.linalg.svd(np.dot(X_, Y_.T)) 
-    R = np.dot(U.T, Vt.T)
+    [U, S, Vt] = np.linalg.svd(np.dot(Y_, X_.T)) 
+    R = np.dot(U, Vt)
     return (Cx, Cy, R)    
 
 #Purpose: To implement the loop which ties together correspondence finding
